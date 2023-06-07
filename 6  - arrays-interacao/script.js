@@ -1,45 +1,74 @@
-const carros = ["Ford", "Fiat", "Honda"];
+//selecione cada curso e retorne um array
+// com objetos contendo o titulo, descricao aulas e horas de cada curso
 
-carros.forEach((item, index, array) => {
-  console.log(`${index} - ${item}`);
+const cursos = document.querySelectorAll(".curso");
+const arrayCursos = Array.from(cursos);
+
+const objetosCurso = arrayCursos.map((curso) => {
+  const titulo = curso.querySelector("h1").innerText;
+  const descricao = curso.querySelector("p").innerText;
+  const aulas = curso.querySelector(".aulas").innerText;
+  const horas = curso.querySelector(".horas").innerText;
+  return {
+    titulo,
+    descricao,
+    aulas,
+    horas,
+  };
 });
 
-console.log("----------------Map--------------");
+console.log(objetosCurso);
 
-//Map mesma forma que o forEach(), porém ao invés de retornar undefined, retorna uma nova array com valores atualizados de acordo com o return de cada iteração.
+// Retorne uma lista com os números maiores que 100
+const numeros = [3, 44, 333, 23, 122, 322, 33];
 
-const newCarros = carros.map((item) => {
-  return "Carro " + item;
+const maioresQue100 = numeros.filter((numero) => numero > 100);
+console.log(maioresQue100);
+
+// Verifique se Baixo  faz parte da lista de instrumento e retorne true
+const instrumentos = ["Guitarra", "Baixo", "Bateria", "Teclado"];
+const possuiBaixo = instrumentos.some((item) => {
+  return item === "Baixo";
+});
+console.log(possuiBaixo);
+
+// Retorne o valor total de compras
+const compras = [
+  {
+    item: "Banana",
+    preco: "R$ 4,99",
+  },
+  {
+    item: "Ovo",
+    preco: "R$ 2,99",
+  },
+  {
+    item: "Carne",
+    preco: "R$ 25,49",
+  },
+  {
+    item: "Refrigerante",
+    preco: "R$ 5,35",
+  },
+  {
+    item: "Queijo",
+    preco: "R$ 10,60",
+  },
+];
+
+let totalCompras = 0;
+
+compras.forEach((compra) => {
+  totalCompras += +compra.preco.replace("R$", "").replace(",", ".");
 });
 
-const numeros = [1, 2, 3, 4, 5, 6];
-const numeroX2 = numeros.map((numero) => numero * 2);
-console.log(newCarros);
-console.log(numeros);
-console.log(numeroX2);
+console.log(
+  totalCompras.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+);
 
-console.log("----------------Reduce--------------");
-
-// Reeduce executa a função de callbrack para cada item da Array. Um valor especial existe nessa função de callback, ele é chamado de acumulador,
-// mas é na verdade apenas o retorno da iteração anterior
-// [].reduce(callback(acumulador, valor, index, array), valorInicial)
-
-const aulas = [10, 25, 30];
-
-const tatal1 = aulas.reduce((acumulador, atual) => {
-  return acumulador + atual;
-});
-
-console.log(tatal1);
-
-const total2 = aulas.reduce((acc, cur) => acc + cur, 100);
-console.log(total2);
-
-const numeros1 = [10, 25, 30, 3, 54, 33, 22];
-
-const maiorNumero = numeros1.reduce((anterior, atual) => {
-  if (anterior > atual) return anterior;
-  else return atual;
+const valorTotal = compras.reduce((acumulador, item) => {
+  const precoLimpo = +item.preco.replace("R$", "").replace(",", ".")
+  return acumulador + precoLimpo
 }, 0);
 
-console.log(maiorNumero);
+console.log(valorTotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }));
